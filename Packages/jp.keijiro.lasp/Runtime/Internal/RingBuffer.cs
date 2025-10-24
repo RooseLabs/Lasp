@@ -66,7 +66,19 @@ namespace Lasp
 
         public void WriteEmpty(int length)
         {
-            UnityEngine.Debug.Assert(length <= FreeCount);
+            if (length == 0) return;
+
+            if (FreeCount == 0)
+            {
+                OverflowCount++;
+                return;
+            }
+
+            if (length > FreeCount)
+            {
+                OverflowCount++;
+                length = FreeCount;
+            }
 
             var rp = ReadOffset;
             var wp = WriteOffset;
@@ -74,7 +86,7 @@ namespace Lasp
             var head_rp = new Span<byte>(_buffer, 0, rp);
             var wp_tail = new Span<byte>(_buffer, wp, Capacity - wp);
 
-            if (rp > wp)
+            if (rp > wp || length <= wp_tail.Length)
             {
                 wp_tail.Slice(0, length).Fill(0);
             }
