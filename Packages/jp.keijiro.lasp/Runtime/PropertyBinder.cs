@@ -23,6 +23,7 @@ namespace Lasp
     }
 
     // Generic intermediate implementation
+    [System.Serializable]
     public abstract class GenericPropertyBinder<T> : PropertyBinder
     {
         // Serialized target property information
@@ -56,6 +57,7 @@ namespace Lasp
     }
 
     // Binder for float properties
+    [System.Serializable]
     public sealed class FloatPropertyBinder : GenericPropertyBinder<float>
     {
         public float Value0 = 0;
@@ -66,6 +68,7 @@ namespace Lasp
     }
 
     // Binder for vector (Vector3) properties
+    [System.Serializable]
     public sealed class Vector3PropertyBinder : GenericPropertyBinder<Vector3>
     {
         public Vector3 Value0 = Vector3.zero;
@@ -76,6 +79,7 @@ namespace Lasp
     }
 
     // Binder for quaternion properties, controlled with Euler angles
+    [System.Serializable]
     public sealed class EulerRotationPropertyBinder
       : GenericPropertyBinder<Quaternion>
     {
@@ -88,6 +92,7 @@ namespace Lasp
     }
 
     // Binder for color properties
+    [System.Serializable]
     public sealed class ColorPropertyBinder : GenericPropertyBinder<Color>
     {
         public Color Value0 = Color.black;
